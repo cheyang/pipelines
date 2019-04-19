@@ -107,7 +107,11 @@ def _collect_metrics(name, job_type, metric_name):
     if len(array) > 0:
       logging.info(array)
       result = re.findall(r'\d+\.*\d*',array[-1])
-      metric = float(array[-1])
+      if len(result) > 0:
+        metric = float(result[0])
+      else:
+        logging.warning("Failed to parse metric from %s" % (array[-1]))
+        metric = 0
   except Exception as e:
     logging.warning("Failed to get job status due to" + e)
     return 0
