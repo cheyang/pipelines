@@ -78,6 +78,12 @@ service RunService {
     };
   }
 
+  rpc RetryRun(RetryRunRequest) returns (RunDetail) {
+    option (google.api.http) = {
+      post: "/apis/v1beta1/runs/{id}:retry"
+    };
+  }
+
   rpc ArchiveRun(ArchiveRunRequest) returns (google.protobuf.Empty) {
     option (google.api.http) = {
       post: "/apis/v1beta1/runs/{id}:archive"
@@ -156,6 +162,10 @@ message ListRunsResponse {
 }
 
 message ArchiveRunRequest {
+  string id = 1;
+}
+
+message RetryRunRequest {
   string id = 1;
 }
 
